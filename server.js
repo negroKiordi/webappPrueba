@@ -6,7 +6,7 @@ const port = 3000;
 // Configuración de la base de datos
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'c2469337',
+  user: 'c2469337_Prueba1',
   password: 'gi63VAgadi',
   database: 'c2469337_Prueba1'
 });
@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 // Ruta para agregar un nuevo registro
 app.post('/add-record', (req, res) => {
   const { campo1, campo2 } = req.body;
-  const query = 'INSERT INTO tu_tabla (campo1, campo2) VALUES (?, ?)';
+  const query = 'INSERT INTO Barriles ('tamaño', 'Marca') VALUES (?, ?)';
   
   db.query(query, [campo1, campo2], (err, result) => {
     if (err) {
