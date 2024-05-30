@@ -7,7 +7,7 @@ $dbuser = 'c2469337_Prueba1';
 $dbpass = 'gi63VAgadi';
 $dbname = 'c2469337_Prueba1';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 
 // Comprobar conexión
 if ($conn->connect_error) {
