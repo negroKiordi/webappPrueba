@@ -1,17 +1,14 @@
 <?php
+
 // Datos de conexión a la base de datos
-$servername = "localhost";
-$username = "tu_usuario";
-$password = "tu_contraseña";
-$dbname = "tu_base_de_datos";
 
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+$dbhost = 'localhost';
+$dbuser = 'c2469337_Prueba1';
+$dbpass = 'gi63VAgadi';
+$dbname = 'c2469337_Prueba1';
 
-// Comprobar conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+$conn = mysqli_connect($dbhost, $dbuser, $dbpass) or die ('Ocurrio un error al conectarse al servidor mysql');
+mysql_select_db($dbname);
 
 // Recibir los datos del formulario
 $nombre = $_POST['nombre'];
