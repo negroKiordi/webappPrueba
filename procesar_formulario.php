@@ -7,8 +7,12 @@ $dbuser = 'c2469337_Prueba1';
 $dbpass = 'gi63VAgadi';
 $dbname = 'c2469337_Prueba1';
 
-$conn = mysqli_connect($dbhost, $dbuser, $dbpass) or die ('Ocurrio un error al conectarse al servidor mysql');
-mysql_select_db($dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Comprobar conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
 
 // Recibir los datos del formulario
 $nombre = $_POST['nombre'];
