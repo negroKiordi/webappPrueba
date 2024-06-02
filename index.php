@@ -1,12 +1,13 @@
 <?php
-require_once __DIR__ . '/../config.php';
-require_once __DIR__ . '/../src/Database.php';
-require_once __DIR__ . '/../src/Api.php';
+
+require_once __DIR__ . '\config.php';
+require_once __DIR__ . '\src/Database.php';
+require_once __DIR__ . '\src/Api.php';
 
 header("Content-Type: application/json");
 
 $method = $_SERVER['REQUEST_METHOD'];
-$request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
+$request = explode('/', trim($_SERVER['PATH_INFO'], '/'));
 $table = array_shift($request);
 $data = json_decode(file_get_contents("php://input"), true);
 
@@ -20,4 +21,3 @@ if ($method == 'POST' && !empty($table) && !empty($data)) {
 } else {
     echo json_encode(array("message" => "Invalid request."));
 }
-?>
