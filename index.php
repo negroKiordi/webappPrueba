@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '\config.php';
-require_once __DIR__ . '\src/Database.php';
-require_once __DIR__ . '\src/Api.php';
+require_once  '../config.php';
+require_once  '../src/Database.php';
+require_once  '../src/Api.php';
 
 header("Content-Type: application/json");
 
