@@ -4,6 +4,4 @@ define('DB_NAME', 'buenaugurio');
 define('DB_USER', 'root');
 define('DB_PASS', 'Alej1980');
 
-define('URL_ROOT', 'https://buenaugurio');
-
 ?>
