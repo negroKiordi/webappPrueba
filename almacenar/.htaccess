@@ -1,4 +1,7 @@
+# Asegúrate de que mod_rewrite esté habilitado en tu servidor Apache
 RewriteEngine On
+
+# Redirigir todas las solicitudes a index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
