@@ -1,8 +1,12 @@
 <?php
 
-require_once("../config.php");
-require_once("../src/database.php");
-require_once("../src/api.php");
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../src/database.php';
+require_once __DIR__ . '/../src/api.php';
+
+//require_once("../config.php");
+//require_once("../src/database.php");
+//require_once("../src/api.php");
 
 header("Content-Type: application/json");
 
@@ -22,4 +26,3 @@ if ($method == 'POST' && !empty($data) && !empty($data['table'])) {
 } else {
     echo json_encode(array("message" => "Invalid request chau :("));
 }
-?>
