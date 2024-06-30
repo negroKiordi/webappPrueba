@@ -1,14 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('parentescoForm');
+    const madreInput = document.getElementById('madre');
+    const terneroInput = document.getElementById('ternero');
     const responseDiv = document.getElementById('response');
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
-
+        madreInput.focus();
+        
         const formData = {
             table: 'vinculoMadreTernero',
-            madre: document.getElementById('madre').value,
-            ternero: document.getElementById('ternero').value,
+            madre: madreInput.value,
+            ternero: terneroInput.value,
             fecha: new Date().toISOString().split('T')[0] // Formato YYYY-MM-DD
         };
 
@@ -29,7 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    form.addEventListener('keydown', function(event) {
+    madreInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            terneroInput.focus();
+        }
+    });
+
+    terneroInput.addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
             event.preventDefault();
         }
