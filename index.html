@@ -3,11 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buen Augurio</title>
+    <title>Buen Augurio Ganadería</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Meta etiquetas de Open Graph -->
+    <meta property="og:title" content="Buen Augurio Ganadería">
+    <meta property="og:description" content="Ingresar datos y consultar estadísticas de tu ganadería.">
+    <meta property="og:image" content="https://buenaugurio.site/images/og-image.png">
+    <meta property="og:url" content="https://buenaugurio.site">
+    <meta property="og:type" content="website">
+
+    <!-- Meta etiquetas de Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Buen Augurio Ganadería">
+    <meta name="twitter:description" content="Ingresar datos y consultar estadísticas de tu ganadería.">
+    <meta name="twitter:image" content="https://buenaugurio.site/images/og-image.png">
+
 </head>
 <body>
-    <h1>Buen Augurio</h1>
-    <h2>Establecimiento productivo</h2>
-    
+    <header>
+        <h1>Buen Augurio Ganadería</h1>
+    </header>
+    <main>
+        <div class="button-container">
+            <button onclick="window.location.href='subpaginas/cabezanueva.html'">
+                <img src="images/nuevaCabeza.png" alt="Ficha nueva cabeza">
+                <span>Ficha nueva cabeza</span>
+            </button>
+            <button onclick="window.location.href='subpaginas/parentesco.html'">
+                <img src="images/parentesco.png" alt="Definir parentesco">
+                <span>Definir parentesco</span>
+            </button>
+            <button onclick="window.location.href='subpaginas/practicas.html'">
+                <img src="images/practicasVeterinarias.png" alt="Prácticas veterinarias">
+                <span>Prácticas veterinarias</span>
+            </button>
+            <button onclick="window.location.href='subpaginas/egresos.html'">
+                <img src="images/egresos.png" alt="Egresos">
+                <span>Egresos</span>
+            </button>
+        </div>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
