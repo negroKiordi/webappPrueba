@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
-        madreInput.focus();
-        
+
         const formData = {
             table: 'vinculoMadreTernero',
             madre: madreInput.value,
@@ -24,7 +23,14 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            responseDiv.textContent = data.message || 'Registro insertado con éxito';
+            if (data.message && data.message.includes("success")) {
+                responseDiv.textContent = 'Registro insertado con éxito';
+                madreInput.value = '';
+                terneroInput.value = '';
+                madreInput.focus();
+            } else {
+                responseDiv.textContent = data.message || 'Ocurrió un error al insertar el registro.';
+            }
         })
         .catch(error => {
             console.error('Error:', error);
