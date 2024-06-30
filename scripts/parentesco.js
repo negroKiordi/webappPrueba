@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const madreInput = document.getElementById('madre');
     const terneroInput = document.getElementById('ternero');
     const responseDiv = document.getElementById('response');
+    const limpiarBtn = document.getElementById('limpiarBtn');
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -49,5 +50,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.key === 'Enter') {
             event.preventDefault();
         }
+    });
+
+    limpiarBtn.addEventListener('click', function() {
+        madreInput.value = '';
+        terneroInput.value = '';
+        madreInput.focus();
     });
 });
