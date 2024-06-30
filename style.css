@@ -107,6 +107,15 @@ main {
     background-color: #45a049;
 }
 
+/* Alinear los botones "Guardar" y "Limpiar" */
+#guardarBtn {
+    margin-right: auto;
+}
+
+#limpiarBtn {
+    margin-left: auto;
+}
+
 /* Media queries para dispositivos móviles */
 @media (max-width: 600px) {
     main {
