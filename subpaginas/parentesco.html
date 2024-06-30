@@ -12,14 +12,17 @@
         <h1>Definir Parentesco</h1>
     </header>
     <main>
-        <form id="parentescoForm">
+        <form id="parentescoForm" class="subpagina-form">
             <label for="madre">ID Madre:</label>
             <input type="text" id="madre" name="madre" required>
             
             <label for="ternero">ID Ternero:</label>
             <input type="text" id="ternero" name="ternero" required>
 
-            <button type="submit">Guardar</button>
+            <div class="button-container">
+                <button type="submit">Guardar</button>
+                <button type="button" id="limpiarBtn">Limpiar</button>
+            </div>
         </form>
         <div id="response"></div>
     </main>
