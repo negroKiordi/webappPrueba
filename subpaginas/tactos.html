@@ -19,13 +19,20 @@
             <label for="caravana">Caravana:</label>
             <input type="text" id="caravana" name="caravana">
 
-            <label for="resultado">Resultado:</label>
-            <input list="resultados" id="resultado" name="resultado" required>
-            <datalist id="resultados">
-                <option value="No Apta">
-                <option value="Apta servicio">
-            </datalist>
+            <div>
+                <label for="resultado">Resultado:</label>
+                <label>
+                    <input type="checkbox" id="noAptaCheckbox" name="resultado" value="No Apta">
+                    No Apta
+                </label>
+                <label>
+                    <input type="checkbox" id="aptaServicioCheckbox" name="resultado" value="Apta Servicio">
+                    Apta Servicio
+                </label>
+            </div>
 
+
+            
             <label for="observacion">Observación:</label>
             <input type="text" id="observacion" name="observacion" maxlength="128">
 
