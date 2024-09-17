@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             caravanaElectronica: idInput.value,
             caravanaVisual: caravanaInput.value,
             observacion: observacionInput.value,
-            practica: 'Tacto',
+            practica: 'Tacto preservicio',
             resultado: noAptaCheckbox.checked ? 'No Apta' : 'Apta Servicio',
             fecha: new Date().toISOString().split('T')[0], // Formato YYYY-MM-DD
             fechaResultado: new Date().toISOString().split('T')[0] // Formato YYYY-MM-DD
