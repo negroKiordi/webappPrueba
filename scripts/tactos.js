@@ -17,28 +17,39 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
 
         const formData = {
-            id: idInput.value,
-            caravana: caravanaInput.value,
+            table: 'practicaVeterinaria',
+            caravanaElectronica: idInput.value,
+            caravanaVisual: caravanaInput.value,
+            observacion: observacionInput.value,
+            practica: 'Tacto',
             resultado: resultadoInput.value,
-            observacion: observacionInput.value
+            fecha: new Date().toISOString().split('T')[0], // Formato YYYY-MM-DD
+            fechaResultado: new Date().toISOString().split('T')[0] // Formato YYYY-MM-DD
         };
 
         // Enviar datos al servidor
-        enviarDatosServidor(formData)
-            .then(response => {
-                if (response.success) {
-                    // Si se guardó correctamente en la base de datos, agregar a la tabla local
-                    agregarRegistroTabla(formData);
-                    limpiarFormulario();
-                    idInput.focus();
-                } else {
-                    mostrarMensajeError(response.message || 'Error al guardar en la base de datos');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                mostrarMensajeError('Error al enviar los datos al servidor');
-            });
+        fetch('../almacenar/index.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message && data.message.includes("success")) {
+                responseDiv.textContent = 'Registro insertado con éxito';
+                agregarRegistroTabla(formData); // Si se guardó en la base de datos, agregar a la tabla local
+                limpiarFormulario();
+                idInput.focus();
+            } else {
+                responseDiv.textContent = data.message || 'Ocurrió un error al insertar el registro.';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            responseDiv.textContent = 'Ocurrió un error al insertar el registro.';
+        });
     });
 
     function limpiarFormulario() {
@@ -57,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function agregarRegistroTabla(formData) {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${formData.id}</td>
-            <td>${formData.caravana}</td>
+            <td>${formData.caravanaElectronica}</td>
+            <td>${formData.caravanaVisual}</td>
             <td>${formData.resultado}</td>
             <td>${formData.observacion}</td>
         `;
@@ -88,30 +99,6 @@ document.addEventListener('DOMContentLoaded', function() {
         registros.forEach(registro => {
             agregarRegistroTabla(registro);
         });
-    }
-
-    // Enviar datos al servidor
-    function enviarDatosServidor(formData) {
-        return fetch('../almacenar/api.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                table: 'tactos',
-                id: formData.id,
-                caravana: formData.caravana,
-                resultado: formData.resultado,
-                observacion: formData.observacion
-            })
-        })
-        .then(response => response.json());
-    }
-
-    // Mostrar mensaje de error
-    function mostrarMensajeError(mensaje) {
-        responseDiv.textContent = mensaje;
-        responseDiv.style.color = 'red';
     }
 
     // Exportar la tabla a CSV
