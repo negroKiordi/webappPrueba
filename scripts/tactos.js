@@ -2,13 +2,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('tactosForm');
     const idInput = document.getElementById('id');
     const caravanaInput = document.getElementById('caravana');
-    const resultadoInput = document.getElementById('resultado');
     const observacionInput = document.getElementById('observacion');
+    const noAptaCheckbox = document.getElementById('noAptaCheckbox');
+    const aptaServicioCheckbox = document.getElementById('aptaServicioCheckbox');
     const responseDiv = document.getElementById('response');
     const limpiarBtn = document.getElementById('limpiarBtn');
     const registrosTabla = document.getElementById('registrosTabla').querySelector('tbody');
     const guardarTablaBtn = document.getElementById('guardarTablaBtn');
     const borrarTablaBtn = document.getElementById('borrarTablaBtn');
+
+    // Desmarcar la opción contraria al seleccionar una
+    noAptaCheckbox.addEventListener('change', function() {
+        if (noAptaCheckbox.checked) {
+            aptaServicioCheckbox.checked = false;
+        }
+    });
+
+    aptaServicioCheckbox.addEventListener('change', function() {
+        if (aptaServicioCheckbox.checked) {
+            noAptaCheckbox.checked = false;
+        }
+    });
 
     // Cargar tabla desde el localStorage al inicio
     cargarTabla();
@@ -16,13 +30,19 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault();
 
+        // Validar que se haya seleccionado una opción de resultado
+        if (!noAptaCheckbox.checked && !aptaServicioCheckbox.checked) {
+            responseDiv.textContent = 'Debe seleccionar un resultado.';
+            return;
+        }
+
         const formData = {
             table: 'practicaVeterinaria',
             caravanaElectronica: idInput.value,
             caravanaVisual: caravanaInput.value,
             observacion: observacionInput.value,
             practica: 'Tacto',
-            resultado: resultadoInput.value,
+            resultado: noAptaCheckbox.checked ? 'No Apta' : 'Apta Servicio',
             fecha: new Date().toISOString().split('T')[0], // Formato YYYY-MM-DD
             fechaResultado: new Date().toISOString().split('T')[0] // Formato YYYY-MM-DD
         };
@@ -55,8 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function limpiarFormulario() {
         idInput.value = '';
         caravanaInput.value = '';
-        resultadoInput.value = '';
         observacionInput.value = '';
+        noAptaCheckbox.checked = false;
+        aptaServicioCheckbox.checked = false;
     }
 
     limpiarBtn.addEventListener('click', function() {
