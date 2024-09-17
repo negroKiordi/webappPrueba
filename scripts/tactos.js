@@ -23,12 +23,22 @@ document.addEventListener('DOMContentLoaded', function() {
             observacion: observacionInput.value
         };
 
-        // Agregar registro a la tabla
-        agregarRegistroTabla(formData);
-
-        // Limpiar formulario
-        limpiarFormulario();
-        idInput.focus();
+        // Enviar datos al servidor
+        enviarDatosServidor(formData)
+            .then(response => {
+                if (response.success) {
+                    // Si se guardó correctamente en la base de datos, agregar a la tabla local
+                    agregarRegistroTabla(formData);
+                    limpiarFormulario();
+                    idInput.focus();
+                } else {
+                    mostrarMensajeError(response.message || 'Error al guardar en la base de datos');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                mostrarMensajeError('Error al enviar los datos al servidor');
+            });
     });
 
     function limpiarFormulario() {
@@ -78,6 +88,30 @@ document.addEventListener('DOMContentLoaded', function() {
         registros.forEach(registro => {
             agregarRegistroTabla(registro);
         });
+    }
+
+    // Enviar datos al servidor
+    function enviarDatosServidor(formData) {
+        return fetch('../almacenar/api.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                table: 'tactos',
+                id: formData.id,
+                caravana: formData.caravana,
+                resultado: formData.resultado,
+                observacion: formData.observacion
+            })
+        })
+        .then(response => response.json());
+    }
+
+    // Mostrar mensaje de error
+    function mostrarMensajeError(mensaje) {
+        responseDiv.textContent = mensaje;
+        responseDiv.style.color = 'red';
     }
 
     // Exportar la tabla a CSV
