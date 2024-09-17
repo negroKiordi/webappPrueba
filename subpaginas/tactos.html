@@ -17,14 +17,14 @@
             <input type="text" id="id" name="id" required>
 
             <label for="caravana">Caravana:</label>
-            <input type="text" id="caravana" name="caravana" required>
+            <input type="text" id="caravana" name="caravana">
 
             <label for="resultado">Resultado:</label>
-            <select id="resultado" name="resultado" required>
-                <option value="">Seleccionar</option>
-                <option value="No Apta">No Apta</option>
-                <option value="Apta servicio">Apta servicio</option>
-            </select>
+            <input list="resultados" id="resultado" name="resultado" required>
+            <datalist id="resultados">
+                <option value="No Apta">
+                <option value="Apta servicio">
+            </datalist>
 
             <label for="observacion">Observación:</label>
             <input type="text" id="observacion" name="observacion" maxlength="128">
@@ -34,7 +34,28 @@
                 <button type="button" id="limpiarBtn">Limpiar</button>
             </div>
         </form>
+
         <div id="response"></div>
+
+        <h2>Registros Guardados</h2>
+        <table id="registrosTabla">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Caravana</th>
+                    <th>Resultado</th>
+                    <th>Observación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Registros se agregarán aquí dinámicamente -->
+            </tbody>
+        </table>
+
+        <div class="button-container">
+            <button id="guardarTablaBtn">Guardar Tabla como CSV</button>
+            <button id="borrarTablaBtn">Borrar Tabla</button>
+        </div>
     </main>
 </body>
 </html>
