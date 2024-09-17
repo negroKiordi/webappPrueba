@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapeo Caravanas</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../scripts/mapeoCaravanas.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Mapeo Caravanas</h1>
+    </header>
+    <main>
+        <form id="mapeoCaravanasForm" class="subpagina-form">
+            <label for="electronica">Electrónica:</label>
+            <input type="text" id="electronica" name="electronica" required>
+            
+            <label for="visual">Visual:</label>
+            <input type="text" id="visual" name="visual" required>
+
+            <label for="senasa">SENASA:</label>
+            <input type="text" id="senasa" name="senasa" required>
+
+            <div class="button-container">
+                <button type="submit">Guardar</button>
+                <button type="button" id="limpiarBtn">Limpiar</button>
+            </div>
+        </form>
+        <div id="response"></div>
+    </main>
+</body>
+</html>
