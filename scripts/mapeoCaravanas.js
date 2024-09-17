@@ -10,11 +10,24 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault();
 
+        // Obtener los valores de los campos
+        const electronicaValue = electronicaInput.value.trim();
+        const visualValue = visualInput.value.trim();
+        const senasaValue = senasaInput.value.trim();
+
+        // Validar que al menos dos campos contengan información
+        const filledFields = [electronicaValue, visualValue, senasaValue].filter(value => value !== '');
+
+        if (filledFields.length < 2) {
+            responseDiv.textContent = 'Debe completar al menos dos campos antes de guardar.';
+            return;
+        }
+
         const formData = {
             table: 'mapeoCaravanas',
-            electronica: electronicaInput.value,
-            visual: visualInput.value,
-            senasa: senasaInput.value,
+            electronica: electronicaValue,
+            visual: visualValue,
+            senasa: senasaValue,
             fecha: new Date().toISOString().split('T')[0] // Formato YYYY-MM-DD
         };
 
