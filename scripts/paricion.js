@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const limpiarBtn = document.getElementById('limpiarBtn');
 
 
-    //fechadepartoInput.value = Date();
+    fechadepartoInput.value =  new Date().toISOString().split('T')[0];
     
     // Mostrar campo observacion si se selecciona 'Otro'
     observacionesSelect.addEventListener('change', function() {
@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function limpiarFormulario() {
         form.reset();
         observacionInput.style.display = 'none';
+        fechadepartoInput.value =  new Date().toISOString().split('T')[0];
         document.getElementById('label-observacion').style.display = 'none';
     }
 });
