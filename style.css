@@ -1,4 +1,4 @@
-/* Estilos generales */
+ /* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -67,36 +67,20 @@ main {
     max-width: 400px;
 }
 
-/* Alinear el label con su campo */
 .subpagina-form label {
-    display: inline-block;
-    margin-bottom: 5px;
+    display: block;
+    margin-bottom: 10px;
     font-weight: bold;
 }
 
 .subpagina-form input[type="text"],
-.subpagina-form input[type="number"],
-.subpagina-form input[type="date"],
-.subpagina-form select {
+.subpagina-form input[type="number"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-}
-
-/* Ajuste de espaciado entre el label y el campo */
-.subpagina-form label {
-    margin-right: 10px;
-}
-
-/* Ajustar la separación entre campos */
-.subpagina-form input,
-.subpagina-form select {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    padding: 8px;
 }
 
 /* Estilo para el contenedor de botones */
