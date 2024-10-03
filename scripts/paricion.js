@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const responseDiv = document.getElementById('response');
     const limpiarBtn = document.getElementById('limpiarBtn');
 
+
+    fechadepartoInput.value = Date();
+    
     // Mostrar campo observacion si se selecciona 'Otro'
     observacionesSelect.addEventListener('change', function() {
         if (observacionesSelect.value === 'Otro') {
