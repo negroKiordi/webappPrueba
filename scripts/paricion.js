@@ -1,34 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('paricionForm');
-    const fechaPartoInput = document.getElementById('fechadeparto');
+    const fechadepartoInput = document.getElementById('fechadeparto');
     const IDvacaInput = document.getElementById('IDvaca');
-    const tipoIDvacaInput = document.getElementById('tipoIDvaca');
-    const categoriaInput = document.getElementById('categoria');
-    const estadoCorporalInput = document.getElementById('estadoCorporal');
+    const tipoIDvacaSelect = document.getElementById('tipoIDvaca');
+    const CategoriaSelect = document.getElementById('Categoria');
+    const ECCSelect = document.getElementById('ECC');
     const IDcriaInput = document.getElementById('IDcria');
-    const tipoIDcriaInput = document.getElementById('tipoIDcria');
-    const sexoInput = document.getElementById('sexo');
-    const pesoInput = document.getElementById('peso');
-    const metodoPesadoInput = document.getElementById('metodoPesado');
-    const tipoPartoInput = document.getElementById('tipoParto');
-    const observacionesInput = document.getElementById('observaciones');
+    const tipoIDcriaSelect = document.getElementById('tipoIDcria');
+    const SexoSelect = document.getElementById('Sexo');
+    const PesoInput = document.getElementById('Peso');
+    const metodoPesadoSelect = document.getElementById('metodoPesado');
+    const tipoPartoSelect = document.getElementById('tipoParto');
+    const observacionesSelect = document.getElementById('observaciones');
     const observacionInput = document.getElementById('observacion');
-    const observacionLabel = document.getElementById('observacionLabel');
     const responseDiv = document.getElementById('response');
     const limpiarBtn = document.getElementById('limpiarBtn');
 
-    // Preseleccionar la fecha actual
-    fechaPartoInput.value = new Date().toISOString().split('T')[0];
-
-    // Mostrar campo "observación" si se selecciona "otro" en observaciones
-    observacionesInput.addEventListener('change', function() {
-        if (observacionesInput.value === 'otro') {
+    // Mostrar campo observacion si se selecciona 'Otro'
+    observacionesSelect.addEventListener('change', function() {
+        if (observacionesSelect.value === 'Otro') {
             observacionInput.style.display = 'block';
-            observacionLabel.style.display = 'block';
+            document.getElementById('label-observacion').style.display = 'block';
         } else {
             observacionInput.style.display = 'none';
-            observacionLabel.style.display = 'none';
-            observacionInput.value = '';
+            document.getElementById('label-observacion').style.display = 'none';
         }
     });
 
@@ -38,18 +33,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const formData = {
             table: 'paricion',
-            fechadeparto: fechaPartoInput.value,
+            fecha: new Date().toISOString().split('T')[0], // Fecha actual en formato YYYY-MM-DD
+            fechadeparto: fechadepartoInput.value,
             IDvaca: IDvacaInput.value,
-            tipoIDvaca: tipoIDvacaInput.value === 'electronica',
-            categoria: categoriaInput.value,
-            estadoCorporal: estadoCorporalInput.value,
+            tipoIDvaca: tipoIDvacaSelect.value === 'electronica', // true para electrónica, false para manejo
+            Categoria: CategoriaSelect.value,
+            EstadoCorporal: ECCSelect.value,
             IDcria: IDcriaInput.value,
-            tipoIDcria: tipoIDcriaInput.value === 'electronica',
-            sexo: sexoInput.value,
-            peso: parseFloat(pesoInput.value),
-            metodoPesado: metodoPesadoInput.value === 'balanza',
-            tipoParto: tipoPartoInput.value,
-            observaciones: observacionesInput.value === 'otro' ? observacionInput.value : observacionesInput.value
+            tipoIDcria: tipoIDcriaSelect.value === 'electronica', // true para electrónica, false para manejo
+            Sexo: SexoSelect.value,
+            Peso: PesoInput.value,
+            metodoPesado: metodoPesadoSelect.value === 'Balanza', // true para balanza, false para cinta
+            tipoParto: tipoPartoSelect.value,
+            observaciones: observacionesSelect.value === 'Otro' ? observacionInput.value : observacionesSelect.value
         };
 
         // Enviar los datos al servidor
@@ -65,9 +61,28 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.message && data.message.includes("success")) {
                 responseDiv.textContent = 'Registro insertado con éxito';
                 limpiarFormulario(); // Limpiar el formulario después de enviar
-                IDvacaInput.focus();
+                fechadepartoInput.focus();
             } else {
                 responseDiv.textContent = data.message || 'Ocurrió un error al insertar el registro.';
             }
         })
-        .catch(error
+        .catch(error => {
+            console.error('Error:', error);
+            responseDiv.textContent = 'Ocurrió un error al insertar el registro.';
+        });
+    });
+
+    // Manejar el botón Limpiar
+    limpiarBtn.addEventListener('click', function() {
+        limpiarFormulario();
+        fechadepartoInput.focus();
+    });
+
+    // Función para limpiar el formulario
+    function limpiarFormulario() {
+        form.reset();
+        observacionInput.style.display = 'none';
+        document.getElementById('label-observacion').style.display = 'none';
+    }
+});
+               
