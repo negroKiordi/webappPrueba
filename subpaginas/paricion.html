@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Parición</title>
+    <title>Registro de Parición</title>
     <link rel="stylesheet" href="../style.css">
     <script src="../scripts/paricion.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>Registrar Parición</h1>
+        <h1>Registro de Parición</h1>
     </header>
     <main>
         <form id="paricionForm" class="subpagina-form">
@@ -20,81 +20,81 @@
             <input type="text" id="IDvaca" name="IDvaca" maxlength="20" required>
 
             <label for="tipoIDvaca">Tipo de ID:</label>
-            <select id="tipoIDvaca" name="tipoIDvaca" required>
+            <select id="tipoIDvaca" name="tipoIDvaca">
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option value="manejo">Manejo</option>
                 <option value="electronica">Electrónica</option>
             </select>
 
-            <label for="categoria">Categoría:</label>
-            <select id="categoria" name="categoria" required>
+            <label for="Categoria">Categoría:</label>
+            <select id="Categoria" name="Categoria">
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option value="1º parto">1º parto</option>
                 <option value="2º parto">2º parto</option>
                 <option value="multipara">Multípara</option>
             </select>
 
-            <label for="estadoCorporal">ECC (Estado corporal):</label>
-            <select id="estadoCorporal" name="estadoCorporal" required>
+            <label for="ECC">Estado Corporal (ECC):</label>
+            <select id="ECC" name="ECC">
                 <option value="" disabled selected>Seleccione una opción</option>
-                <option value="1,5">1,5</option>
+                <option value="1.5">1.5</option>
                 <option value="2">2</option>
-                <option value="2,5">2,5</option>
+                <option value="2.5">2.5</option>
                 <option value="3">3</option>
-                <option value="3,5">3,5</option>
+                <option value="3.5">3.5</option>
                 <option value="4">4</option>
-                <option value="4,5">4,5</option>
+                <option value="4.5">4.5</option>
             </select>
 
-            <label for="IDcria">ID de la cría:</label>
-            <input type="text" id="IDcria" name="IDcria" maxlength="20">
+            <label for="IDcria">ID de la Cría:</label>
+            <input type="text" id="IDcria" name="IDcria" maxlength="20" required>
 
-            <label for="tipoIDcria">Tipo de ID:</label>
+            <label for="tipoIDcria">Tipo de ID de la Cría:</label>
             <select id="tipoIDcria" name="tipoIDcria">
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option value="manejo">Manejo</option>
                 <option value="electronica">Electrónica</option>
             </select>
 
-            <label for="sexo">Sexo:</label>
-            <select id="sexo" name="sexo" required>
+            <label for="Sexo">Sexo:</label>
+            <select id="Sexo" name="Sexo">
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option value="H">Hembra</option>
                 <option value="M">Macho</option>
             </select>
 
-            <label for="peso">Peso:</label>
-            <input type="number" id="peso" name="peso" step="0.1" required>
+            <label for="Peso">Peso:</label>
+            <input type="number" id="Peso" name="Peso" required>
 
             <label for="metodoPesado">Método de pesado:</label>
-            <select id="metodoPesado" name="metodoPesado" required>
+            <select id="metodoPesado" name="metodoPesado">
                 <option value="" disabled selected>Seleccione una opción</option>
-                <option value="balanza">Balanza</option>
-                <option value="cinta">Cinta</option>
+                <option value="Balanza">Balanza</option>
+                <option value="Cinta">Cinta</option>
             </select>
 
-            <label for="tipoParto">Tipo de parto:</label>
-            <select id="tipoParto" name="tipoParto" required>
+            <label for="tipoParto">Tipo de Parto:</label>
+            <select id="tipoParto" name="tipoParto">
                 <option value="" disabled selected>Seleccione una opción</option>
-                <option value="normal">Normal</option>
-                <option value="ayuda leve">Ayuda leve</option>
-                <option value="ayuda severa">Ayuda severa</option>
-                <option value="cesarea">Cesárea</option>
+                <option value="Normal">Normal</option>
+                <option value="Ayuda leve">Ayuda leve</option>
+                <option value="Ayuda severa">Ayuda severa</option>
+                <option value="Cesárea">Cesárea</option>
             </select>
 
             <label for="observaciones">Observaciones:</label>
-            <select id="observaciones" name="observaciones" required>
+            <select id="observaciones" name="observaciones">
                 <option value="" disabled selected>Seleccione una opción</option>
-                <option value="aborto">Aborto</option>
-                <option value="nacido muerto">Nacido muerto</option>
-                <option value="mal ubicado">Mal ubicado</option>
-                <option value="mellizos">Mellizos</option>
-                <option value="trillizos">Trillizos</option>
-                <option value="parto inducido">Parto inducido</option>
-                <option value="otro">Otro</option>
+                <option value="Aborto">Aborto</option>
+                <option value="Nacido muerto">Nacido muerto</option>
+                <option value="Mal ubicado">Mal ubicado</option>
+                <option value="Mellizos">Mellizos</option>
+                <option value="Trillizos">Trillizos</option>
+                <option value="Parto inducido">Parto inducido</option>
+                <option value="Otro">Otro</option>
             </select>
 
-            <label for="observacion" id="observacionLabel" style="display: none;">Especificar observación:</label>
+            <label for="observacion" id="label-observacion" style="display: none;">Especifique:</label>
             <input type="text" id="observacion" name="observacion" maxlength="40" style="display: none;">
 
             <div class="button-container">
