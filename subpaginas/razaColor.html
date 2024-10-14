@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raza y Color</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../scripts/razaColor.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Raza y Color</h1>
+    </header>
+    <main>
+        <form id="razaColorForm" class="subpagina-form">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id">
+
+            <label for="caravana">Caravana:</label>
+            <input type="text" id="caravana" name="caravana">
+
+            <!-- Raza -->
+            <div>
+                <label for="raza">Raza:</label>
+                <label>
+                    <input type="checkbox" id="angusCheckbox" name="raza" value="Angus">
+                    Angus
+                </label>
+                <label>
+                    <input type="checkbox" id="pampaCheckbox" name="raza" value="Pampa">
+                    Pampa
+                </label>
+            </div>
+
+            <!-- Color -->
+            <div>
+                <label for="color">Color:</label>
+                <label>
+                    <input type="checkbox" id="negroCheckbox" name="color" value="Negro">
+                    Negro
+                </label>
+                <label>
+                    <input type="checkbox" id="coloradoCheckbox" name="color" value="Colorado">
+                    Colorado
+                </label>
+            </div>
+
+            <div class="button-container">
+                <button type="submit">Guardar</button>
+                <button type="button" id="limpiarBtn">Limpiar</button>
+            </div>
+        </form>
+
+        <div id="response"></div>
+
+        <!-- Sincronización -->
+        <h3 id="syncStatus">SINCRONIZADO</h3>
+
+        <h2>Registros Guardados</h2>
+        <table id="registrosTabla">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Caravana</th>
+                    <th>Raza</th>
+                    <th>Color</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Registros se agregarán aquí dinámicamente -->
+            </tbody>
+        </table>
+
+        <div class="button-container">
+            <button id="guardarTablaBtn">Guardar Tabla como CSV</button>
+            <button id="borrarTablaBtn">Borrar Tabla</button>
+        </div>
+    </main>
+</body>
+</html>
