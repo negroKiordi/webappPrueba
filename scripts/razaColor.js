@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const registrosNoSincronizados = registros.filter(registro => !registro.sincronizado);
 
         if (registrosNoSincronizados.length > 0) {
-            registrosNoSincronizados.forEach(registro => {
+            registrosNoSincronizados.forEach((registro, index) => {
                 const formData = {
                     table: 'razaColor',
                     caravanaElectronica: registro.id,
@@ -172,8 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => {
                     if (response.ok) {
                         // Si se envía correctamente, actualizar el flag de sincronización
-                        registro.sincronizado = true;
-                        guardarEnLocalStorage(); // Guardar los cambios en el localStorage
+                        registros[index].sincronizado = true;
+                        localStorage.setItem('registrosRazaColor', JSON.stringify(registros));
                         actualizarEstadoSincronizacion();
                     } else {
                         console.error('Error al enviar los datos al servidor');
