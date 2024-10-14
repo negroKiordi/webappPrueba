@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const guardarTablaBtn = document.getElementById('guardarTablaBtn');
     const borrarTablaBtn = document.getElementById('borrarTablaBtn');
 
+    // Estructuras para almacenar los datos
+    let registrosTotales = JSON.parse(localStorage.getItem('registrosTotales')) || [];
+    let registrosNoSincronizados = JSON.parse(localStorage.getItem('registrosNoSincronizados')) || [];
+
     // Cargar tabla desde el localStorage al inicio
     cargarTabla();
 
@@ -34,21 +38,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const formData = {
-            table: 'razaColor',
-            caravanaElectronica: idInput.value,
-            caravanaVisual: caravanaInput.value,
+            id: idInput.value,
+            caravana: caravanaInput.value,
             raza: angusCheckbox.checked ? 'Angus' : 'Pampa',
             color: negroCheckbox.checked ? 'Negro' : 'Colorado',
-            fecha: new Date().toISOString().split('T')[0], // Formato YYYY-MM-DD
-            sincronizado: false
+            fecha: new Date().toISOString().split('T')[0]
         };
 
-        // Agregar a la tabla local y al localStorage
+        // Agregar a la estructura de registros totales y a la de no sincronizados
+        registrosTotales.push(formData);
+        registrosNoSincronizados.push(formData);
+
+        // Guardar en localStorage ambas estructuras
+        localStorage.setItem('registrosTotales', JSON.stringify(registrosTotales));
+        localStorage.setItem('registrosNoSincronizados', JSON.stringify(registrosNoSincronizados));
+
+        // Agregar a la tabla
         agregarRegistroTabla(formData);
 
         // Limpiar formulario
         limpiarFormulario();
         idInput.focus();
+
+        actualizarEstadoSincronizacion();
     });
 
     function limpiarFormulario() {
@@ -65,62 +77,41 @@ document.addEventListener('DOMContentLoaded', function() {
         idInput.focus();
     });
 
-    // Agregar registro a la tabla y guardar en localStorage
+    // Agregar registro a la tabla
     function agregarRegistroTabla(formData) {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${formData.caravanaElectronica}</td>
-            <td>${formData.caravanaVisual}</td>
+            <td>${formData.id}</td>
+            <td>${formData.caravana}</td>
             <td>${formData.raza}</td>
             <td>${formData.color}</td>
         `;
         registrosTabla.insertBefore(row, registrosTabla.firstChild); // Empuja hacia abajo los registros
-
-        guardarEnLocalStorage();
-        actualizarEstadoSincronizacion();
-    }
-
-    // Guardar registros en localStorage
-    function guardarEnLocalStorage() {
-        const registros = [];
-        registrosTabla.querySelectorAll('tr').forEach(row => {
-            const cells = row.querySelectorAll('td');
-            registros.push({
-                id: cells[0].textContent,
-                caravana: cells[1].textContent,
-                raza: cells[2].textContent,
-                color: cells[3].textContent,
-                sincronizado: false
-            });
-        });
-        localStorage.setItem('registrosRazaColor', JSON.stringify(registros));
     }
 
     // Cargar registros desde localStorage
     function cargarTabla() {
-        const registros = JSON.parse(localStorage.getItem('registrosRazaColor')) || [];
-        registros.forEach(registro => {
+        registrosTotales.forEach(registro => {
             agregarRegistroTabla(registro);
         });
+        actualizarEstadoSincronizacion();
     }
 
     // Actualizar estado de sincronización
     function actualizarEstadoSincronizacion() {
-        const registros = JSON.parse(localStorage.getItem('registrosRazaColor')) || [];
-        const sincronizados = registros.every(registro => registro.sincronizado);
+        const sincronizados = registrosNoSincronizados.length === 0;
         syncStatus.textContent = sincronizados ? 'SINCRONIZADO' : 'NO sincronizado';
     }
 
     // Guardar la tabla como CSV
     guardarTablaBtn.addEventListener('click', function() {
         const registros = [];
-        registrosTabla.querySelectorAll('tr').forEach(row => {
-            const cells = row.querySelectorAll('td');
+        registrosTotales.forEach(registro => {
             registros.push([
-                cells[0].textContent, // ID
-                cells[1].textContent, // Caravana
-                cells[2].textContent, // Raza
-                cells[3].textContent  // Color
+                registro.id,
+                registro.caravana,
+                registro.raza,
+                registro.color
             ]);
         });
 
@@ -141,16 +132,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Borrar la tabla y limpiar el localStorage
     borrarTablaBtn.addEventListener('click', function() {
         registrosTabla.innerHTML = '';
-        localStorage.removeItem('registrosRazaColor');
+        registrosTotales = [];
+        registrosNoSincronizados = [];
+        localStorage.removeItem('registrosTotales');
+        localStorage.removeItem('registrosNoSincronizados');
         actualizarEstadoSincronizacion();
     });
 
     // Función para enviar los datos no sincronizados al servidor cada 10 segundos
     function enviarDatosNoSincronizados() {
-        const registros = JSON.parse(localStorage.getItem('registrosRazaColor')) || [];
-        const registrosNoSincronizados = registros.filter(registro => !registro.sincronizado);
-
         if (registrosNoSincronizados.length > 0) {
+            // Solo enviamos los datos no sincronizados
             registrosNoSincronizados.forEach((registro, index) => {
                 const formData = {
                     table: 'razaColor',
@@ -158,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     caravanaVisual: registro.caravana,
                     raza: registro.raza,
                     color: registro.color,
-                    fecha: new Date().toISOString().split('T')[0]
+                    fecha: registro.fecha
                 };
 
                 // Enviar datos al servidor
@@ -171,9 +163,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(response => {
                     if (response.ok) {
-                        // Si se envía correctamente, actualizar el flag de sincronización
-                        registros[index].sincronizado = true;
-                        localStorage.setItem('registrosRazaColor', JSON.stringify(registros));
+                        // Si se envía correctamente, eliminar el registro de la lista de no sincronizados
+                        registrosNoSincronizados.splice(index, 1);
+                        localStorage.setItem('registrosNoSincronizados', JSON.stringify(registrosNoSincronizados));
                         actualizarEstadoSincronizacion();
                     } else {
                         console.error('Error al enviar los datos al servidor');
