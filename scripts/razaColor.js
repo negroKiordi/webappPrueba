@@ -13,32 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const guardarTablaBtn = document.getElementById('guardarTablaBtn');
     const borrarTablaBtn = document.getElementById('borrarTablaBtn');
 
-    // Desmarcar la opción contraria al seleccionar una (para Raza)
-    angusCheckbox.addEventListener('change', function() {
-        if (angusCheckbox.checked) {
-            pampaCheckbox.checked = false;
-        }
-    });
-
-    pampaCheckbox.addEventListener('change', function() {
-        if (pampaCheckbox.checked) {
-            angusCheckbox.checked = false;
-        }
-    });
-
-    // Desmarcar la opción contraria al seleccionar una (para Color)
-    negroCheckbox.addEventListener('change', function() {
-        if (negroCheckbox.checked) {
-            coloradoCheckbox.checked = false;
-        }
-    });
-
-    coloradoCheckbox.addEventListener('change', function() {
-        if (coloradoCheckbox.checked) {
-            negroCheckbox.checked = false;
-        }
-    });
-
     // Cargar tabla desde el localStorage al inicio
     cargarTabla();
 
@@ -65,11 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
             caravanaVisual: caravanaInput.value,
             raza: angusCheckbox.checked ? 'Angus' : 'Pampa',
             color: negroCheckbox.checked ? 'Negro' : 'Colorado',
-            fecha: new Date().toISOString().split('T')[0] // Formato YYYY-MM-DD
+            fecha: new Date().toISOString().split('T')[0], // Formato YYYY-MM-DD
+            sincronizado: false
         };
-
-        // Agregar flag de sincronización local
-        formData.sincronizado = false;
 
         // Agregar a la tabla local y al localStorage
         agregarRegistroTabla(formData);
@@ -172,4 +144,48 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.removeItem('registrosRazaColor');
         actualizarEstadoSincronizacion();
     });
+
+    // Función para enviar los datos no sincronizados al servidor cada 10 segundos
+    function enviarDatosNoSincronizados() {
+        const registros = JSON.parse(localStorage.getItem('registrosRazaColor')) || [];
+        const registrosNoSincronizados = registros.filter(registro => !registro.sincronizado);
+
+        if (registrosNoSincronizados.length > 0) {
+            registrosNoSincronizados.forEach(registro => {
+                const formData = {
+                    table: 'razaColor',
+                    caravanaElectronica: registro.id,
+                    caravanaVisual: registro.caravana,
+                    raza: registro.raza,
+                    color: registro.color,
+                    fecha: new Date().toISOString().split('T')[0]
+                };
+
+                // Enviar datos al servidor
+                fetch('../almacenar/index.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Si se envía correctamente, actualizar el flag de sincronización
+                        registro.sincronizado = true;
+                        guardarEnLocalStorage(); // Guardar los cambios en el localStorage
+                        actualizarEstadoSincronizacion();
+                    } else {
+                        console.error('Error al enviar los datos al servidor');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error de red:', error);
+                });
+            });
+        }
+    }
+
+    // Ejecutar la sincronización cada 10 segundos
+    setInterval(enviarDatosNoSincronizados, 10000);
 });
