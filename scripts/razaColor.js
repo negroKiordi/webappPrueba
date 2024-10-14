@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Guardar en localStorage ambas estructuras
         localStorage.setItem('registrosTotales', JSON.stringify(registrosTotales));
         localStorage.setItem('registrosNoSincronizados', JSON.stringify(registrosNoSincronizados));
+        enviarDatosNoSincronizados();
 
         // Agregar a la tabla
         agregarRegistroTabla(formData);
@@ -136,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
         registrosNoSincronizados = [];
         localStorage.removeItem('registrosTotales');
         localStorage.removeItem('registrosNoSincronizados');
-        enviarDatosNoSincronizados();
         actualizarEstadoSincronizacion();
     });
 
