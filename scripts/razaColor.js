@@ -136,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
         registrosNoSincronizados = [];
         localStorage.removeItem('registrosTotales');
         localStorage.removeItem('registrosNoSincronizados');
+        enviarDatosNoSincronizados();
         actualizarEstadoSincronizacion();
     });
 
