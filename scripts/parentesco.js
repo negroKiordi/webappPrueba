@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fecha: new Date().toISOString().split('T')[0] // Formato YYYY-MM-DD
         };
 
-        fetch('../almacenar/index.php', {
+        fetch('../api/almacenar.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
