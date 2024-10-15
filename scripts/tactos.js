@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Enviar datos al servidor
-        fetch('../almacenar/index.php', {
+        fetch('../api/almacenar.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
