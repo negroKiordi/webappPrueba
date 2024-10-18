@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault();
 
+        // Limpiar mensajes de error previos
+        responseDiv.textContent = '';
+        
         if (!sweepstakeCheckbox.checked && !topperCheckbox.checked) {
             responseDiv.textContent = 'Debe seleccionar un toro.';
             return;
@@ -50,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function limpiarFormulario() {
+        responseDiv.textContent = '';
         idInput.value = '';
         caravanaInput.value = '';
         sweepstakeCheckbox.checked = false;
