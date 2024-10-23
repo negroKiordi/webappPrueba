@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const ColorSelect = document.getElementById('Color');
     const PesoInput = document.getElementById('Peso');
     const metodoPesadoSelect = document.getElementById('metodoPesado');
-    const Tamanio = document.getElementById('tamanio');
+    const TamanioSelect = document.getElementById('tamanio');
     const tipoPartoSelect = document.getElementById('tipoParto');
     const observacionesSelect = document.getElementById('observaciones');
     const observacionInput = document.getElementById('observacion');
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             colorPelaje: ColorSelect.value,
             Peso: PesoInput.value,
             metodoPesado: metodoPesadoSelect.value === 'Balanza', // true para balanza, false para cinta
-            tamanio: Tamanio.value,
+            tamanio: TamanioSelect.value,
             tipoParto: tipoPartoSelect.value,
             observaciones: observacionesSelect.value === 'Otro' ? observacionInput.value : observacionesSelect.value
         };
