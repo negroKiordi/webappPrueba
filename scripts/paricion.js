@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const IDcriaInput = document.getElementById('IDcria');
     const tipoIDcriaSelect = document.getElementById('tipoIDcria');
     const SexoSelect = document.getElementById('Sexo');
+    const ColorSelect = document.getElementById('Color');
     const PesoInput = document.getElementById('Peso');
     const metodoPesadoSelect = document.getElementById('metodoPesado');
     const tipoPartoSelect = document.getElementById('tipoParto');
@@ -45,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
             IDcria: IDcriaInput.value,
             tipoIDcria: tipoIDcriaSelect.value === 'electronica', // true para electrónica, false para manejo
             Sexo: SexoSelect.value,
+            colorPelaje: ColorSelect.value,
             Peso: PesoInput.value,
             metodoPesado: metodoPesadoSelect.value === 'Balanza', // true para balanza, false para cinta
             tipoParto: tipoPartoSelect.value,
