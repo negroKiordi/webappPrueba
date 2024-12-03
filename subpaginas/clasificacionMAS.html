@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificación MAS</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../scripts/clasificacionMAS.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Clsificación MAS</h1>
+    </header>
+    <main>
+        <form id="clasificacinMASForm" class="subpagina-form">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id">
+
+            <label for="caravana">Caravana:</label>
+            <input type="text" id="caravana" name="caravana">
+
+            <!-- Toro -->
+            <div>
+                <label for="mas">Inspección:</label>
+                <label>
+                    <input type="radio" id="MASCheckbox" name="mas" value="MAS">
+                    MAS - positivo
+                </label>
+                <label>
+                    <input type="radio" id="nMASCheckbox" name="mas" value="noMAS">
+                    MAS - negativo
+                </label>
+            </div>
+			<br>
+			<br>
+            <div class="button-container">
+                <button type="submit">Guardar</button>
+                <button type="button" id="limpiarBtn">Limpiar</button>
+            </div>
+        </form>
+
+        <div id="response"></div>
+
+        <!-- Sincronización -->
+        <h3 id="syncStatus">SINCRONIZADO</h3>
+
+        <div class="button-container">
+            <button id="guardarTablaBtn">Guardar Tabla como CSV</button>
+        </div>
+
+        <h2>Registros Guardados</h2>
+        <table id="registrosTabla">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Caravana</th>
+                    <th>MAS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Registros se agregarán aquí dinámicamente -->
+            </tbody>
+        </table>
+
+        <div class="button-container">
+            <button id="borrarTablaBtn">Borrar Tabla</button>
+        </div>
+    </main>
+</body>
+</html>
