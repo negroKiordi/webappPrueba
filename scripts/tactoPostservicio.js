@@ -3,26 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const idInput = document.getElementById('id');
     const caravanaInput = document.getElementById('caravana');
     const observacionInput = document.getElementById('observacion');
-    const noAptaCheckbox = document.getElementById('noAptaCheckbox');
-    const aptaServicioCheckbox = document.getElementById('aptaServicioCheckbox');
     const responseDiv = document.getElementById('response');
     const limpiarBtn = document.getElementById('limpiarBtn');
     const registrosTabla = document.getElementById('registrosTabla').querySelector('tbody');
     const guardarTablaBtn = document.getElementById('guardarTablaBtn');
     const borrarTablaBtn = document.getElementById('borrarTablaBtn');
-
-    // Desmarcar la opción contraria al seleccionar una
-    noAptaCheckbox.addEventListener('change', function() {
-        if (noAptaCheckbox.checked) {
-            aptaServicioCheckbox.checked = false;
-        }
-    });
-
-    aptaServicioCheckbox.addEventListener('change', function() {
-        if (aptaServicioCheckbox.checked) {
-            noAptaCheckbox.checked = false;
-        }
-    });
+	const tactoSeleccionado = document.querySelector('input[name="resultado"]:checked');
 
     // Cargar tabla desde el localStorage al inicio
     cargarTabla();
@@ -31,12 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
 
         // Validar que se haya seleccionado una opción de resultado
-        if (!vaciaCheckbox.checked || !prenesChicaCheckbox.checked || !prenesGrandeCheckbox.checked) {
+		if (!tactoSeleccionado) {
             responseDiv.textContent = 'Debe seleccionar un resultado.';
             return;
         }
 
-		const tactoSeleccionado = document.querySelector('input[name="resultado"]:checked').value;
 		
         const formData = {
             table: 'practicaVeterinaria',
@@ -44,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             caravanaVisual: caravanaInput.value,
             observacion: observacionInput.value,
             practica: 'Tacto postservicio',
-            resultado: tactoSeleccionado,
+            resultado: tactoSeleccionado.value,
             fecha: new Date().toISOString().split('T')[0], // Formato YYYY-MM-DD
             fechaResultado: new Date().toISOString().split('T')[0] // Formato YYYY-MM-DD
         };
