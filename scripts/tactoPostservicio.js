@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const registrosTabla = document.getElementById('registrosTabla').querySelector('tbody');
     const guardarTablaBtn = document.getElementById('guardarTablaBtn');
     const borrarTablaBtn = document.getElementById('borrarTablaBtn');
-	const tactoSeleccionado = document.querySelector('input[name="resultado"]:checked');
 
     // Cargar tabla desde el localStorage al inicio
     cargarTabla();
@@ -17,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
 
         // Validar que se haya seleccionado una opción de resultado
+		const tactoSeleccionado = document.querySelector('input[name="resultado"]:checked'); 
 		if (!tactoSeleccionado) {
             responseDiv.textContent = 'Debe seleccionar un resultado.';
             return;
@@ -63,8 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         idInput.value = '';
         caravanaInput.value = '';
         observacionInput.value = '';
-        noAptaCheckbox.checked = false;
-        aptaServicioCheckbox.checked = false;
+		document.querySelectorAll('input[name="resultado"]').forEach(radio => radio.checked = false);
     }
 
     limpiarBtn.addEventListener('click', function() {
@@ -138,7 +137,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Borrar registros de la tabla y del localStorage
     borrarTablaBtn.addEventListener('click', function() {
-        registrosTabla.innerHTML = '';
-        localStorage.removeItem('registrosTactoPostservicio');
-    });
+		registrosTabla.innerHTML = '';
+		localStorage.removeItem('registrosTactoPostservicio');
+		responseDiv.textContent = 'Registros eliminados.';
+	});
+	
 });
