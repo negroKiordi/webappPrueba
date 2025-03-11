@@ -15,14 +15,22 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault();
 
-        // Validar que se haya seleccionado una opción de resultado
+        // Validar que se haya seleccionado una opción de resultado del tacto
 		const tactoSeleccionado = document.querySelector('input[name="resultado"]:checked'); 
 		if (!tactoSeleccionado) {
-            responseDiv.textContent = 'Debe seleccionar un resultado.';
+            responseDiv.textContent = 'Debe seleccionar un resultado del tacto.';
             return;
         }
 
+        // Validar que se haya seleccionado una opción de resultado de la condición corporal
+		const ccSeleccionado = document.querySelector('input[name="condicionCorporal"]:checked'); 
+		if (!ccSeleccionadoSeleccionado) {
+            responseDiv.textContent = 'Debe seleccionar un resultado de condición corporal.';
+            return;
+        }
 		
+		//Guardo dos registros en la base de datos una para el tacto y otra para la condición corporal	
+		//Registro del resultado del tacto
         const formData = {
             table: 'practicaVeterinaria',
             caravanaElectronica: idInput.value,
@@ -55,8 +63,48 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error:', error);
+            responseDiv.textContent = 'Ocurrió un error al insertar el registro del Tacto.';
+        });
+		
+		
+		
+		//Registro del resultado de la condición corporal
+        const formData = {
+            table: 'practicaVeterinaria',
+            caravanaElectronica: idInput.value,
+            caravanaVisual: caravanaInput.value,
+            observacion: observacionInput.value,
+            practica: 'Condicion corporal',
+            resultado: ccSeleccionado.value,
+            fecha: new Date().toISOString().split('T')[0], // Formato YYYY-MM-DD
+            fechaResultado: new Date().toISOString().split('T')[0] // Formato YYYY-MM-DD
+        };
+
+        // Enviar datos al servidor
+        fetch('../api/almacenar.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message && data.message.includes("success")) {
+                responseDiv.textContent = 'Registro insertado con éxito';
+                agregarRegistroTabla(formData); // Si se guardó en la base de datos, agregar a la tabla local
+                limpiarFormulario();
+                idInput.focus();
+            } else {
+                responseDiv.textContent = data.message || 'Ocurrió un error al insertar el registro de condicion Corporal.';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
             responseDiv.textContent = 'Ocurrió un error al insertar el registro.';
         });
+		
+		
     });
 
     function limpiarFormulario() {
@@ -64,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         caravanaInput.value = '';
         observacionInput.value = '';
 		document.querySelectorAll('input[name="resultado"]').forEach(radio => radio.checked = false);
+		document.querySelectorAll('input[name="condicionCorporal"]').forEach(radio => radio.checked = false);
     }
 
     limpiarBtn.addEventListener('click', function() {
