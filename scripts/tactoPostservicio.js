@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		
 		//Registro del resultado de la condición corporal
-        const formData = {
+        const formDataCC = {
             table: 'practicaVeterinaria',
             caravanaElectronica: idInput.value,
             caravanaVisual: caravanaInput.value,
@@ -86,13 +86,13 @@ document.addEventListener('DOMContentLoaded', function() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formDataCC)
         })
         .then(response => response.json())
         .then(data => {
             if (data.message && data.message.includes("success")) {
                 responseDiv.textContent = 'Registro insertado con éxito';
-                agregarRegistroTabla(formData); // Si se guardó en la base de datos, agregar a la tabla local
+                agregarRegistroTabla(formDataCC); // Si se guardó en la base de datos, agregar a la tabla local
                 limpiarFormulario();
                 idInput.focus();
             } else {
