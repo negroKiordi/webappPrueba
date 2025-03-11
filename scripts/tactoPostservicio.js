@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Validar que se haya seleccionado una opción de resultado de la condición corporal
 		const ccSeleccionado = document.querySelector('input[name="condicionCorporal"]:checked'); 
-		if (!ccSeleccionadoSeleccionado) {
+		if (!ccSeleccionado) {
             responseDiv.textContent = 'Debe seleccionar un resultado de condición corporal.';
             return;
         }
